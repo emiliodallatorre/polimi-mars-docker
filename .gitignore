@@ -2,6 +2,7 @@
 .cache/
 .java/
 .local/
+sandbox/
 
 # Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode,assembler
 # Edit at https://www.toptal.com/developers/gitignore?templates=visualstudiocode,assembler

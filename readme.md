@@ -2,24 +2,33 @@
 
 ## Introduction
 
-The MIPS Assembler and Runtime Simulator (MARS) is a good program for running (simulated) MIPS assemby code. If you want to get it up and running quickly (without installing Java on your host system), this is the tool for you. It contains configuration used to spin up MARS in a Docker container, whether you are running on GNU/Linux, macOS, or Windows.
+The MIPS Assembler and Runtime Simulator (MARS) is a good program for running (simulated) MIPS assembly code. If you want to get it up and running quickly (without installing Java on your host system), this is the tool for you. It contains configuration used to spin up MARS in a Docker container, whether you are running on GNU/Linux, macOS, or Windows.
 
-## Notes
+## Prerequisites
 
-If you are on GNU/Linux, this will only work if you are running an Xorg display server on your host machine. (Wayland and Mir are not directly supported).
-
-**Important**, the MARS program will only be able to see assembly programs that are contained in the `./dockerized-mars` directory. You will *not* be able to browse for files that are just anywhere on your computer. This is because we are [bind mounting](https://docs.docker.com/storage/bind-mounts) the [`./dockerized-mars` directory](https://github.com/eankeen/dockerized-mars/blob/8c19a71b7317b2c915d27be84f22470d2acfbff9/start.sh#L15) into the Docker container.
-
-## Setup
+### All Platforms
 
 Docker [must be installed](https://docs.docker.com/install).
 
+### macOS
+
+On macOS, you need to install XQuartz for X11 forwarding. Follow the instructions at [this guide](https://gist.github.com/sorny/969fe55d85c9b0035b0109a31cbcb088) to set up XQuartz properly.
+
+### GNU/Linux
+
+This will only work if you are running an Xorg display server on your host machine. Wayland and Mir are not directly supported.
+
+## Important Notes
+
+The MARS program will only be able to see assembly programs that are contained in the `./polimi-mars-docker` directory. You will **not** be able to browse for files that are just anywhere on your computer. This is because we are [bind mounting](https://docs.docker.com/storage/bind-mounts) the [`./polimi-mars-docker` directory](https://github.com/emiliodallatorre/polimi-mars-docker/blob/main/start.sh) into the Docker container.
+
+## Setup
+
 ```sh
-git clone https://github.com/eankeen/dockerized-mars
-cd dockerized-mars
+git clone https://github.com/emiliodallatorre/polimi-mars-docker
+cd polimi-mars-docker
 chmod +x ./start.sh
 sudo ./start.sh
 ```
 
 Running `start.sh` as sudo is required because connecting to the Docker daemon socket requires superuser privileges.
-

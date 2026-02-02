@@ -4,6 +4,10 @@
 
 The MIPS Assembler and Runtime Simulator (MARS) is a good program for running (simulated) MIPS assembly code. If you want to get it up and running quickly (without installing Java on your host system), this is the tool for you. It contains configuration used to spin up MARS in a Docker container, whether you are running on GNU/Linux, macOS, or Windows.
 
+This project uses an improved version of MARS called [myMARS](https://github.com/yutotakano/myMARS), which includes enhancements and bug fixes over the original MARS simulator.
+
+**Note:** This implementation includes Java rendering optimizations to address XQuartz display issues on Apple Silicon, as discussed in [XQuartz issue #31](https://github.com/XQuartz/XQuartz/issues/31).
+
 ## Prerequisites
 
 ### All Platforms

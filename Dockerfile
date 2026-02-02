@@ -1,8 +1,8 @@
-FROM ubuntu:19.10
+FROM ubuntu:latest
 
 # install java
-RUN apt-get -y update
-RUN apt-get -y install default-jre
+RUN apt -y update
+RUN apt -y install default-jre
 
 # create 'developer' user
 RUN mkdir -p /home/developer && \

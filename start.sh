@@ -12,5 +12,5 @@ sudo docker run --rm \
                 --mount type=bind,src=/tmp/.X11-unix,dst=/tmp/.X11-unix,ro=false \
                 --mount type=bind,src=/etc/localtime,dst=/etc/localtime,ro=true \
                 --name mars-container \
-                -de DISPLAY="$DISPLAY" \
+                -de DISPLAY="docker.for.mac.host.internal:0" \
                 mars_ek:default

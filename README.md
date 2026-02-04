@@ -1,38 +1,44 @@
 # Dockerized MARS
 
-## Introduction
+Run the MIPS Assembler and Runtime Simulator (MARS) in a Docker container without needing to install Java on your machine. Works on GNU/Linux, macOS, and Windows.
 
-The MIPS Assembler and Runtime Simulator (MARS) is a good program for running (simulated) MIPS assembly code. If you want to get it up and running quickly (without installing Java on your host system), this is the tool for you. It contains configuration used to spin up MARS in a Docker container, whether you are running on GNU/Linux, macOS, or Windows.
+This uses [myMARS](https://github.com/yutotakano/myMARS) by Yuto Takano, which is an improved version with bug fixes and enhancements.
 
-This project uses an improved version of MARS called [myMARS](https://github.com/yutotakano/myMARS) by Yuto Takano and, which includes enhancements and bug fixes over the original MARS simulator.
-
-**Note:** This implementation includes Java rendering optimizations to address XQuartz display issues on Apple Silicon, as discussed in [XQuartz issue #31](https://github.com/XQuartz/XQuartz/issues/31).
+**Note:** If you're on Apple Silicon, this includes rendering fixes for XQuartz (see [XQuartz issue #31](https://github.com/XQuartz/XQuartz/issues/31)).
 
 ## Prerequisites
 
-### All Platforms
+You'll need [Docker](https://docs.docker.com/install) installed.
 
-Docker [must be installed](https://docs.docker.com/install).
+**macOS users:** You also need XQuartz for X11 forwarding. [This guide](https://gist.github.com/sorny/969fe55d85c9b0035b0109a31cbcb088) walks you through the setup.
 
-### macOS
-
-On macOS, you need to install XQuartz for X11 forwarding. Follow the instructions at [this guide](https://gist.github.com/sorny/969fe55d85c9b0035b0109a31cbcb088) to set up XQuartz properly.
-
-### GNU/Linux
-
-This will only work if you are running an Xorg display server on your host machine. Wayland and Mir are not directly supported.
-
-## Important Notes
-
-The MARS program will only be able to see assembly programs that are contained in the `./polimi-mars-docker` directory. You will **not** be able to browse for files that are just anywhere on your computer. This is because we are [bind mounting](https://docs.docker.com/storage/bind-mounts) the [`./polimi-mars-docker` directory](https://github.com/emiliodallatorre/polimi-mars-docker/blob/main/start.sh) into the Docker container.
+**Linux users:** This only works with Xorg. Wayland and Mir aren't supported.
 
 ## Setup
 
-```sh
-git clone https://github.com/emiliodallatorre/polimi-mars-docker
+```bash
+git clone https://github.com/emiliodallatorre/polimi-mars-docker.git
 cd polimi-mars-docker
 chmod +x ./start.sh
 sudo ./start.sh
 ```
 
-Running `start.sh` as sudo is required because connecting to the Docker daemon socket requires superuser privileges.
+The script needs sudo to access the Docker daemon.
+
+## Important
+
+MARS can only see files in the `./polimi-mars-docker` directory. It won't be able to open files from anywhere else on your computer because of how Docker [bind mounts](https://docs.docker.com/storage/bind-mounts) work. Just put your `.asm` files in this directory before running the script.
+
+## Troubleshooting
+
+**Display issues on macOS?** Make sure XQuartz is running and that you've run `xhost +localhost`.
+
+**Permission errors on Linux?** Add yourself to the docker group:
+```bash
+sudo usermod -aG docker $USER
+newgrp docker
+```
+
+## License
+
+See the [LICENSE](LICENSE) file. This project uses the MARS license from the original developers.
